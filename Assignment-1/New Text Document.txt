@@ -1,0 +1,73 @@
+clc;
+clear all;
+close all;
+warning off;
+%a = imread('Maulik.png');
+a = imread('/MATLAB Drive/Assignment-1/image-8.jpeg');
+%a=rgb2gray(a);
+%a = im2double(a);
+subplot(2,2,1); imshow(a);
+title('Original Image');
+%w = [0 1 0 ; 1 -4 1 ; 0 1 0];
+%Laplacian filter
+%I = imfilter(a,w);
+sigma = 0.4; alpha = 0.5;
+I = locallapfilt(a, sigma, alpha);
+subplot(2,2,2); imshow(I);
+title('Laplacian filtered Image');
+I1 = a + I;
+subplot(2,2,3); imshow(I1);
+title('Sharpened Image (Laplacian+Original)');
+%montage({a, I}, 'Size', [1 2]);
+%title('Original Image HPF (Sharpened) Image');
+
+I = imread('/MATLAB Drive/Assignment-1/image-7.jpg');
+
+mf = ones(3, 3)/9;
+noise_free = imfilter(I,mf);
+
+
+subplot(2,2,2),imshow(I), title('Noisy Image');
+subplot(2,2,3),imshow(noise_free), title('After Removing Noise');
+imsave
+
+
+%Slopes chosen are 0.5, 2 and 0.5
+close all;
+clear all;
+clc
+%I=imread('Maulik.png');
+I=imread('/MATLAB Drive/Assignment-1/image-2.jpg');
+%I=rgb2gray(I);
+I=im2double(I);
+I = (I * 2) / max(I(:));
+I_str = 0;
+[row,col] = size(I);
+LT = 100; % The lower threshold value
+UT = 150; % The upper threshold value grid on;
+for i=1:row
+for j=1:col
+if I(i,j)<=LT
+I_str(i,j)=0.5*I(i,j);
+else if I(i,j)<=UT
+I_str(i,j)=2*(I(i,j)-LT)+(0.5*LT);
+else
+I_str(i,j)=0.5*(I(i,j)-UT)+0.5*LT+2*(UT-LT);
+end
+end
+end
+end
+dd=[];
+hold on;
+dd(1:100)=0.5*(0:99);
+dd(101:150)=2*((100:149)-100)+0.5*100; 
+dd(151:256)=(0.5*((150:255)-150))+(0.5*100)+(2*(150-100));
+axis tight;
+plot(dd);
+hold on;
+xlabel('Intensity in input image');
+ylabel('Intensity in output image');
+title('Contrast-Stretch Transformation function');
+figure
+subplot(211),imshow(I); title('Original Image Contrast stretched Image');
+subplot(212),imshow(I_str);

@@ -1,0 +1,9 @@
+I = imread('/MATLAB Drive/Assignment-1/image-7.jpg');
+
+mf = ones(3, 3)/9;
+noise_free = imfilter(I,mf);
+
+
+subplot(2,2,2),imshow(I), title('Noisy Image');
+subplot(2,2,3),imshow(noise_free), title('After Removing Noise');
+imsave

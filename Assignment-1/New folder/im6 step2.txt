@@ -1,0 +1,15 @@
+%	gamma transform by 1.6 to reduce exposure and increase detail
+I=imread('/MATLAB Drive/Assignment-1/im6Contrast stretch.bmp')
+R=im2double(I);
+figure
+I_gamma = 0;
+[row,col]= size(R);
+C = 0.6;
+gamma = 1.6;
+for i=1:row
+for j=1:col
+I_gamma(i,j) = C * R(i,j)^gamma;
+end
+end
+subplot(1,2,1); imshow(R); title('Original Image');
+subplot(1,2,2); imshow(I_gamma); title('Gamma transformed Image(factor 3)')
