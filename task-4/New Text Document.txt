@@ -1,0 +1,53 @@
+img1=imread('cameraman.tif');
+img1=im2double(img1);
+img2=imnoise(img1,"gaussian",0.6);
+%w=[1 1 1; 2 4 2; 1 2 1];
+w=fspecial('average');
+i=imfilter(img2,w);
+subplot(131),imshow(img1);
+
+subplot(132),imshow(img2);
+subplot(133),imshow(i);
+--------------------------------------------
+img4=imread('s&p.jpg');
+img2=im2double(img4);
+
+%w=[1 1 1; 2 4 2; 1 2 1];
+x=rand(size(img2));%minimum filter
+img2(x(:)<0.05)=0;
+im=ordfilt2(img4,9,ones(3,3));
+
+%i=imfilter(img4,im);
+subplot(131),imshow(img4);
+subplot(132),imshow(img2);
+subplot(133),imshow(im);
+--------------------------------------------
+img4=imread('s&p.jpg');
+img2=im2double(img4);
+
+%w=[1 1 1; 2 4 2; 1 2 1];
+x=rand(size(img2));%minimum filter
+img2(x(:)<0.50)=255;
+im=ordfilt2(img4,1,ones(3,3));
+
+%i=imfilter(img4,im);
+subplot(121),imshow(img4);
+subplot(122),imshow(img2);
+subplot(133),imshow(im);
+--------------------------------------------
+img=imread('cameraman.tif');
+%w=[0 1 0;1 -4 1;0 1 0];
+sigma=0.4;
+alpha=0.5;
+i=locallapfilt(img,sigma,alpha);
+subplot(121),imshow(img);
+subplot(122),imshow(i);
+
+--------------------------------------------
+img=imread('cameraman.tif');
+%w=[0 1 0;1 -4 1;0 1 0];
+filt=fspecial('sobel');
+s=uint8(round(filter2(filt,img)));
+subplot(121),imshow(img);
+subplot(122),imshow(s);
+
